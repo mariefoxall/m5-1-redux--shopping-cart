@@ -3,13 +3,16 @@ import React from "react";
 const initialState = {};
 
 export default function cartReducer(state = initialState, action) {
+  console.log(state);
   switch (action.type) {
     case "ADD_ITEM": {
       return {
         ...state,
         [action.item.id]: {
           ...action.item,
-          quantity: 1,
+          quantity: state[action.item.id]
+            ? state[action.item.id].quantity + 1
+            : 1,
         },
       };
     }
@@ -19,6 +22,16 @@ export default function cartReducer(state = initialState, action) {
       delete stateCopy[action.item.id];
       return stateCopy;
       console.log(stateCopy);
+    }
+    case "UPDATE_QUANTITY": {
+      console.log(action);
+      return {
+        ...state,
+        [action.item.id]: {
+          ...state[action.item.id],
+          quantity: action.item.quantity,
+        },
+      };
     }
     default:
       return state;

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { removeItem } from "../actions";
+import { updateQuantity } from "../actions";
 
 const CartItem = ({ price, quantity, title, id }) => {
   const dispatch = useDispatch();
@@ -16,9 +17,14 @@ const CartItem = ({ price, quantity, title, id }) => {
       <QuantityDiv>
         <label htmlFor="quantity">Quantity:</label>
         <QuantityInput
+          onChange={(ev) => {
+            const quantityValue = Number(ev.target.value);
+            dispatch(updateQuantity({ id, quantity: quantityValue }));
+          }}
           type="text"
           id="quantity"
           name="quantity"
+          value={quantity}
         ></QuantityInput>
       </QuantityDiv>
     </CartItemDiv>
@@ -30,7 +36,7 @@ const CartItemDiv = styled.div`
 `;
 
 const QuantityInput = styled.input`
-  width: 22px;
+  width: 25px;
   margin-left: 10px;
 `;
 

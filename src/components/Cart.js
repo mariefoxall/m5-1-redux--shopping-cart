@@ -19,22 +19,26 @@ const Cart = () => {
     <RightSide>
       <Divider />
       <CartDiv>
-        <h1>Your Cart</h1>
-        <p>{storeItems.length} item(s)</p>
-        {storeItems.map((item) => {
-          return (
-            <Itemized key={item.id}>
-              <CartItemList>
-                <CartItem
-                  price={item.price}
-                  quantity={item.quantity}
-                  title={item.title}
-                  id={item.id}
-                />
-              </CartItemList>
-            </Itemized>
-          );
-        })}
+        <div>
+          <h1>Your Cart</h1>
+          <p>{storeItems.length} item(s)</p>
+        </div>
+        <GrowDiv>
+          {storeItems.map((item) => {
+            return (
+              <Itemized key={item.id}>
+                <CartItemList>
+                  <CartItem
+                    price={item.price}
+                    quantity={item.quantity}
+                    title={item.title}
+                    id={item.id}
+                  />
+                </CartItemList>
+              </Itemized>
+            );
+          })}
+        </GrowDiv>
         <BottomPart>
           <Total>Total: ${total / 100}</Total>
           <PurchaseButton>Purchase</PurchaseButton>
@@ -43,6 +47,10 @@ const Cart = () => {
     </RightSide>
   );
 };
+
+const GrowDiv = styled.div`
+  flex-grow: 3;
+`;
 const RightSide = styled.div`
   display: flex;
   width: 30%;
@@ -60,6 +68,9 @@ const CartDiv = styled.div`
   width: 100%;
   position: relative;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Divider = styled.div`
@@ -75,12 +86,10 @@ const CartItemList = styled.div``;
 const TopPart = styled.div``;
 
 const BottomPart = styled.div`
-  position: absolute;
-  bottom: 20px;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
 `;
 
 const Total = styled.div`
