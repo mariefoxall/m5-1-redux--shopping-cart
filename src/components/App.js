@@ -1,24 +1,33 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import Logo from './Logo';
-import ItemGrid from './ItemGrid';
-import GlobalStyles from './GlobalStyles';
+import Logo from "./Logo";
+import ItemGrid from "./ItemGrid";
+import GlobalStyles from "./GlobalStyles";
+import Cart from "./Cart";
 
 const App = () => {
   return (
-    <Wrapper>
-      <Header>
-        <Logo />
-      </Header>
-      <ItemGridWrapper>
-        <ItemGrid />
-      </ItemGridWrapper>
+    <Store>
+      <Wrapper>
+        <Header>
+          <Logo />
+        </Header>
+        <ItemGridWrapper>
+          <ItemGrid />
+        </ItemGridWrapper>
 
-      <GlobalStyles />
-    </Wrapper>
+        <GlobalStyles />
+      </Wrapper>
+      <Cart />
+    </Store>
   );
 };
+
+const Store = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const Wrapper = styled.div`
   position: relative;
