@@ -29,6 +29,7 @@ const Cart = () => {
                   price={item.price}
                   quantity={item.quantity}
                   title={item.title}
+                  id={item.id}
                 />
               </CartItemList>
             </Itemized>

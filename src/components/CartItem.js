@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { removeItem } from "../actions";
 
-const CartItem = ({ price, quantity, title }) => {
+const CartItem = ({ price, quantity, title, id }) => {
+  const dispatch = useDispatch();
   return (
     <CartItemDiv>
       <CartTitle>
         <div>{title}</div>
-        <CloseButton>X</CloseButton>
+        <CloseButton onClick={() => dispatch(removeItem({ id, title, price }))}>
+          X
+        </CloseButton>
       </CartTitle>
       <QuantityDiv>
         <label htmlFor="quantity">Quantity:</label>
@@ -36,10 +41,15 @@ const CartTitle = styled.div`
 `;
 
 const CloseButton = styled.button`
+  border-radius: 5px;
   border: none;
   outline: none;
   color: white;
   background-color: #4d004d;
+  &:hover {
+    cursor: pointer;
+    background-color: #ff406e;
+  }
 `;
 
 const QuantityDiv = styled.div`
