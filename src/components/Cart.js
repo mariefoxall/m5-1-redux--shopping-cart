@@ -1,25 +1,41 @@
 import React from "react";
 import CartItem from "./CartItem";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { getStoreItemArray } from "../reducers";
 
 const Cart = () => {
+  const state = useSelector((state) => state);
+  const storeItems = useSelector(getStoreItemArray);
+  console.log(storeItems);
+
+  let total = 0;
+
+  storeItems.forEach((item) => {
+    total = total + item.price * item.quantity;
+  });
+
   return (
     <RightSide>
       <Divider />
       <CartDiv>
         <h1>Your Cart</h1>
-        <p>1 item</p>
-        <Itemized>
-          <CartTitle>
-            <div>Here's the stuff you want:</div>
-            <CloseButton>X</CloseButton>
-          </CartTitle>
-          <CartItemList>
-            <CartItem />
-          </CartItemList>
-        </Itemized>
+        <p>{storeItems.length} item(s)</p>
+        {storeItems.map((item) => {
+          return (
+            <Itemized key={item.id}>
+              <CartItemList>
+                <CartItem
+                  price={item.price}
+                  quantity={item.quantity}
+                  title={item.title}
+                />
+              </CartItemList>
+            </Itemized>
+          );
+        })}
         <BottomPart>
-          <Total>Total: $12.34</Total>
+          <Total>Total: ${total / 100}</Total>
           <PurchaseButton>Purchase</PurchaseButton>
         </BottomPart>
       </CartDiv>
@@ -53,22 +69,7 @@ const Itemized = styled.div`
   border: 1px dashed white;
 `;
 
-const CartTitle = styled.div`
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CloseButton = styled.button`
-  border: none;
-  outline: none;
-  color: white;
-  background-color: #4d004d;
-`;
-const CartItemList = styled.div`
-  background-color: #330033;
-  padding: 15px;
-`;
+const CartItemList = styled.div``;
 
 const TopPart = styled.div``;
 
